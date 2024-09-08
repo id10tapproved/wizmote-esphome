@@ -24,6 +24,13 @@ blueprint:
           min: 1
           max: 50
           unit_of_measurement: "%"
+    light_zero:
+      name: Light 0
+      description: The light to control if no buttons are pressed
+      selector:
+        target:
+          entity:
+            domain: light    
     light_one:
       name: Light 1
       description: The light to control after pressing 1
@@ -57,7 +64,9 @@ mode: restart
 
 trigger:
   platform: event
-  event_type: esphome.wizmote_choose
+  event_type: 
+   - esphome.wizmote_choose
+   - esphome.wizmote_action
   event_data:
     mac: !input "remote"
 
@@ -65,6 +74,7 @@ action:
   - variables:
       button: "{{ trigger.event.data.button | int }}"
       brightness_step: !input brightness_step
+      light_zero: !input light_zero
       light_one: !input light_one
       light_two: !input light_two
       light_three: !input light_three
@@ -77,7 +87,8 @@ action:
         \ {{ light_three }}\n \
         \ {% elif button == 4 %}\n \
         \ {{ light_four }}\n \
-        \ {% endif %}\n"
+        \ {% else %}\n \
+        \ {{ light_zero }}\n \
   - repeat:
       until:
         - "{{ wait.trigger == none }}"
