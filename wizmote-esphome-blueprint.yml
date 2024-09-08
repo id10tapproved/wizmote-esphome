@@ -88,7 +88,7 @@ action:
         \ {% elif button == 4 %}\n \
         \ {{ light_four }}\n \
         \ {% else %}\n \
-        \ {{ light_zero }}\n \
+        \ {{ light_zero }}\n"
   - repeat:
       until:
         - "{{ wait.trigger == none }}"
