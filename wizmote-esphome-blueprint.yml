@@ -62,13 +62,17 @@ blueprint:
 
 mode: restart
 
-trigger:
-  platform: event
-  event_type: 
-   - esphome.wizmote_choose
-   - esphome.wizmote_action
-  event_data:
-    mac: !input "remote"
+triggers:
+  - trigger: event
+    event_type: 
+     - esphome.wizmote_choose
+    event_data:
+      mac: !input "remote"
+ - trigger: event
+    event_type: 
+     - esphome.wizmote_action
+    event_data:
+      mac: !input "remote"
 
 action:
   - variables:
